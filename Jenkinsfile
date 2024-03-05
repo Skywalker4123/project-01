@@ -12,5 +12,10 @@ pipeline {
                 git branch: 'main', credentialsId: 'git', url: 'https://github.com/Skywalker4123/project-01.git'
             }
         }
+        stage('Compile Code') {
+            steps {
+                sh 'mvn compile'
+            }
+        }
     }
 }
