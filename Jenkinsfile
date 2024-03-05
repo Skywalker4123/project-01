@@ -9,7 +9,7 @@ pipeline {
     stages {        
         stage('Source Code Repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/Skywalker4123/project-01.git'
+                git branch: 'main', credentialsId: 'git', url: 'https://github.com/Skywalker4123/project-01.git'
             }
         }
     }
