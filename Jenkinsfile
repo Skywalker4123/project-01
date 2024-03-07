@@ -5,9 +5,7 @@ pipeline {
         jdk 'java17'
         maven 'maven3'
     }
-    environment {
-        SCANNER_HOME=tool 'SonarQube_Tool'
-    }
+    
     stages {        
         stage('CleanUp Workspace') {
             steps {
