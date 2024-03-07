@@ -36,10 +36,7 @@ pipeline {
             steps {
                 script {
                     withSonarQubeEnv(credentialsId: 'sonar-token') {
-                        mvn clean verify sonar:sonar \
-                          -Dsonar.projectKey=project-01 \
-                          -Dsonar.host.url=http://3.110.30.112:9000 \
-                          -Dsonar.login=sqp_637336592dddbfaac47bed437122eeaa8665f783
+                        sh 'mvn clean package sonar:sonar'
                     }
                 }
             }
