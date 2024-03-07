@@ -7,6 +7,11 @@ pipeline {
     }
 
     stages {        
+        stage('Workspace Cleaning') {
+            steps {
+                cleanWs{}
+            }
+        }
         stage('Source Code Repository') {
             steps {
                 git branch: 'main', credentialsId: 'git', url: 'https://github.com/Skywalker4123/project-01.git'
