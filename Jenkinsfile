@@ -35,14 +35,15 @@ pipeline {
             }
         }
         stage('Sonarqube Analysis') {
-            steps {
-                withSonarQubeEnv(credentialsId: 'SonarQube-Token') 
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=project-01 \
-                    -Dsonar.projectKey=project-01 '''
-                }
-                
-            }    
-            
-        }
+            step {
+                script {
+                    withSonarQubeEnv(credentialsId: 'sonar-token') {
+                        sh 'mvn clean package sonar:sonar'
+                    }
+                }         
+            }
+           
+        }    
+       
     }
 }
