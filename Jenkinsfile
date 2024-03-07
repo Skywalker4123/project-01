@@ -5,7 +5,9 @@ pipeline {
         jdk 'java17'
         maven 'maven3'
     }
-    
+    environment {
+        SCANNER_HOME=tool 'SonarQube-Scanner'
+    }
     stages {        
         stage('CleanUp Workspace') {
             steps {
@@ -34,15 +36,10 @@ pipeline {
         }
         stage('Sonarqube Analysis') {
             steps {
-                withSonarQubeEnv('SonarQube') {
-                withCredentials([string(credentialsId: 'SonarQube-Token', variable: 'SONAR_TOKEN')]) {
-                    sh '''
-                    mvn clean verify sonar:sonar \
-                    -Dsonar.projectKey=project-01 \
-                    -Dsonar.host.url=http://3.110.30.112:9000 \
-                    -Dsonar.login=$SONAR_TOKEN 
-                    '''
-                    }
+                withSonarQubeEnv(credentialsId: 'SonarQube-Token') {
+                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=project-01 \
+                    -Dsonar.projectKey=project-01 '''
+                }
                 }    
             }
         }
