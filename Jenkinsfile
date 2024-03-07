@@ -6,7 +6,7 @@ pipeline {
         maven 'maven3'
     }
     environment {
-        SCANNER_HOME=tool 'SonarQube-Scanner'
+        SCANNER_HOME=tool 'SonarQube_Tool'
     }
     stages {        
         stage('CleanUp Workspace') {
@@ -40,8 +40,9 @@ pipeline {
                     sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=project-01 \
                     -Dsonar.projectKey=project-01 '''
                 }
-                }    
-            }
+                
+            }    
+            
         }
     }
 }
