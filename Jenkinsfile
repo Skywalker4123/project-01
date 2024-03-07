@@ -45,7 +45,8 @@ pipeline {
                     -Dsonar.host.url=http://3.110.30.112:9000 \
                     -Dsonar.login=$SONAR_TOKEN 
                     '''
-                }
+                    }
+                }    
             }
         }
     }
