@@ -34,10 +34,12 @@ pipeline {
         }
         stage('Sonarqube Analysis') {
             steps {
-                script {
-                    withSonarQubeEnv(credentialsId: 'sonar-token') {
-                        sh 'mvn clean package sonar:sonar'
-                    }
+                environment {
+                    SCANNER_HOME=tool 'sonarscanner'
+                }
+                withSonarQubeEnv('sonarserver') {
+                    sh ''' $SCANNER_HOME/bin/sonarscanner -Dsonar.projectName=Project-01 \
+                    -Dsonar.projectKey=Project-01 '''                
                 }         
             }
            
