@@ -324,10 +324,16 @@ sudo docker run hello-world
 
 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
 
+Trivy Installation
 
-squ_5c8d77727e8d294d67f585d39b836939a4ca16dd
+Debian/Ubuntu
+Add repository to /etc/apt/sources.list.d.
 
-
+sudo apt-get install wget apt-transport-https gnupg lsb-release
+wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
+sudo apt-get update
+sudo apt-get install trivy
 
 
 
