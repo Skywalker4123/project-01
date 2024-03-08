@@ -1,7 +1,7 @@
 pipeline {
     agent any
 
-    tools{
+    tools {
         jdk 'java17'
         maven 'maven3'
     }
@@ -40,15 +40,16 @@ pipeline {
                     }
                 }
             }
-           
         }
         stage('Quality Gate') {
             steps {
                 script {
-                    waitForQualityGate abortpipeline: false, credentialsId: 'sonar-token'
+                    def qg = waitForQualityGate() // Corrected waitForQualityGate usage
+                    if (qg.status != 'OK') {
+                        error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                    }
                 }
             }
-           
         }
         stage('Build & Push Docker Image') {
             steps {
@@ -59,10 +60,7 @@ pipeline {
                         sh "docker push skywalker4123/project-01:latest"
                     }    
                 }
-
             }     
-           
         }    
-       
     }
 }
